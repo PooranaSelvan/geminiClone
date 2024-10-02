@@ -3,7 +3,7 @@ import ChatWindow from './ChatWindow';
 import InputBox from './InputBox';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const API_KEY = 'AIzaSyBHO8ezsyoBSs1WZq1LImw8csfl38z5PhQ';
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 function GeminiChat() {
     const [messages, setMessages] = useState([]);
@@ -39,7 +39,7 @@ function GeminiChat() {
     };
   
     return (
-      <div className="chat-app">
+      <div>
         {/* <App messages={messages} /> */}
         <ChatWindow messages={messages} isTyping={isTyping} />
         <InputBox onSendMessage={sendMessage} />

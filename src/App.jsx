@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Menu, X, MessageSquare } from 'lucide-react';
+import { Menu } from 'lucide-react';
 import { Button } from "./components/ui/button";
-import { ScrollArea } from "./components/ui/scroll-area";
+import Sidebar from './components/SideBar';
 import GeminiChat from './components/GeminiChat';
-import "./App.css"
+import "./App.css";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -12,7 +12,7 @@ const App = () => {
 
   const handleNewChat = () => {
     setIsSidebarOpen(false);
-  }
+  };
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -26,9 +26,9 @@ const App = () => {
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener('mousedown', handleClickOutside);
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
 
@@ -43,56 +43,27 @@ const App = () => {
         />
       )}
 
-      <Button
-        ref={toggleButtonRef}
-        className="fixed top-4 left-4 z-40"
-        size="icon"
-        variant="outline"
-        onClick={toggleSidebar}
-      >
+      <Button ref={toggleButtonRef} className="fixed top-2 left-4 z-40" size="icon" variant="outline" onClick={toggleSidebar}>
         <Menu className="h-4 w-4" />
         <span className="sr-only">Toggle sidebar</span>
       </Button>
 
-      <aside
-        ref={sidebarRef}
-        className={`fixed top-0 left-0 h-full w-64 bg-card text-card-foreground shadow-lg transition-transform duration-300 ease-in-out transform ${
+      <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} sidebarRef={sidebarRef} handleNewChat={handleNewChat} className={`fixed inset-y-0 left-0 z-50 bg-white shadow-lg transition-transform transform 
+        ${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } z-40 md:w-80`} // Adjusted width for larger screens
-      >
-        <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-4 border-b">
-            <h2 className="text-xl font-semibold">Conversations</h2>
-            <Button
-              size="icon"
-              variant="ghost"
-              onClick={() => setIsSidebarOpen(false)}
-            >
-              <X className="h-4 w-4" />
-              <span className="sr-only">Close sidebar</span>
-            </Button>
-          </div>
-          <ScrollArea className="flex-grow">
-            <nav className="p-4 space-y-2">
-              <Button variant="ghost" className="w-full justify-start">
-                <MessageSquare className="mr-2 h-4 w-4" onClick={handleNewChat} />
-                New chat
-              </Button>
-            </nav>
-          </ScrollArea>
-        </div>
-      </aside>
+        }`}
+      />
 
-      <main className={`h-full transition-margin duration-300 ease-in-out ${isSidebarOpen ? 'ml-64 md:ml-80' : 'ml-0'}`}>
-        <header className="flex items-center p-4 pl-20 bg-card shadow-md">
+      <div className={`h-full transition-margin duration-500 ease-in-out ${ isSidebarOpen ? 'ml-64 md:ml-64' : 'ml-0' }`}>
+        <header className="flex items-center p-1 pl-20 bg-card shadow-md">
           <h1 className="font-semibold text-3xl sm:text-4xl">GEMINI</h1>
         </header>
         <div className="p-4 sm:p-10 max-w-4xl mx-auto">
           <GeminiChat />
         </div>
-      </main>
+      </div>
     </div>
   );
-}
+};
 
 export default App;
