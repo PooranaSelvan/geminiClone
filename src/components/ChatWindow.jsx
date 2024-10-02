@@ -54,7 +54,9 @@ const ChatWindow = ({ messages, isTyping }) => {
         )}
 
         {/* dummy div every time res varum pothu down la vanthurum */}
-        <div ref={chatEndRef} />
+        {
+          messages.length != 0 ? <div ref={chatEndRef} /> : null
+        }
       </div>
     </div>
   );
