@@ -32,7 +32,7 @@ const ChatWindow = ({ messages, isTyping }) => {
             {message.isYou && (
               <div className="avatar ml-2">
                 <div className="w-10 m-2">
-                  <img className="rounded-xl" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" alt="user avatar" />
+                  <img className="rounded-xl" src="/user.png" alt="user avatar" />
                 </div>
               </div>
             )}
